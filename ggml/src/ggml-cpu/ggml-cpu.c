@@ -3105,8 +3105,8 @@ static thread_ret_t ggml_graph_compute_thread(void * data) {
 
         #pragma omp critical // 수정
         {   
-            unsigned cpu, node_;
-            syscall(__NR_getcpu, &cpu, &node_, NULL);
+            // unsigned cpu, node_;
+            // syscall(__NR_getcpu, &cpu, &node_, NULL);
 
             printf("node = %s, function = %s, latency = %.3fms \n", node->name, ggml_op_name(node->op), compute_duration + synch_duration);
 
