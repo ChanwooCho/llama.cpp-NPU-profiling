@@ -3085,9 +3085,9 @@ static thread_ret_t ggml_graph_compute_thread(void * data) {
             continue;
         }
 
-        compute_start_time = omp_get_wtime(); // 수정
+        compute_start_time =  ggml_time_us(); // 수정
         ggml_compute_forward(&params, node);
-        compute_end_time = omp_get_wtime(); // 수정
+        compute_end_time =  ggml_time_us(); // 수정
         compute_duration = (compute_end_time - compute_start_time) * 1000; // 수정
 
         if (state->ith == 0 && cplan->abort_callback &&
@@ -3097,10 +3097,10 @@ static thread_ret_t ggml_graph_compute_thread(void * data) {
         }
 
         if (node_n + 1 < cgraph->n_nodes) {
-            synch_start_time = omp_get_wtime(); // 수정
+            synch_start_time =  ggml_time_us(); // 수정
             ggml_barrier(state->threadpool);
-            synch_end_time = omp_get_wtime(); // 수정
-            synch_duration = synch_end_time - synch_start_time; // 수정
+            synch_end_time =  ggml_time_us(); // 수정
+            synch_duration = (synch_end_time - synch_start_time) * 1000; // 수정
         }
 
         #pragma omp critical // 수정
