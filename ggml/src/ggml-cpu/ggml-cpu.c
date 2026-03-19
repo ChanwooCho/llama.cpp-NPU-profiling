@@ -2945,6 +2945,106 @@ struct ggml_cplan ggml_graph_plan(
     return cplan;
 }
 
+const char *ggml_op_name(enum ggml_op op) { // 수정
+    switch (op) {
+        case GGML_OP_NONE: return "GGML_OP_NONE";
+        case GGML_OP_DUP: return "GGML_OP_DUP";
+        case GGML_OP_ADD: return "GGML_OP_ADD";
+        case GGML_OP_ADD1: return "GGML_OP_ADD1";
+        case GGML_OP_ACC: return "GGML_OP_ACC";
+        case GGML_OP_SUB: return "GGML_OP_SUB";
+        case GGML_OP_MUL: return "GGML_OP_MUL";
+        case GGML_OP_DIV: return "GGML_OP_DIV";
+        case GGML_OP_SQR: return "GGML_OP_SQR";
+        case GGML_OP_SQRT: return "GGML_OP_SQRT";
+        case GGML_OP_LOG: return "GGML_OP_LOG";
+        case GGML_OP_SIN: return "GGML_OP_SIN";
+        case GGML_OP_COS: return "GGML_OP_COS";
+        case GGML_OP_SUM: return "GGML_OP_SUM";
+        case GGML_OP_SUM_ROWS: return "GGML_OP_SUM_ROWS";
+        case GGML_OP_MEAN: return "GGML_OP_MEAN";
+        case GGML_OP_ARGMAX: return "GGML_OP_ARGMAX";
+        case GGML_OP_COUNT_EQUAL: return "GGML_OP_COUNT_EQUAL";
+        case GGML_OP_REPEAT: return "GGML_OP_REPEAT";
+        case GGML_OP_REPEAT_BACK: return "GGML_OP_REPEAT_BACK";
+        case GGML_OP_CONCAT: return "GGML_OP_CONCAT";
+        case GGML_OP_SILU_BACK: return "GGML_OP_SILU_BACK";
+        case GGML_OP_NORM: return "GGML_OP_NORM";
+        case GGML_OP_RMS_NORM: return "GGML_OP_RMS_NORM";
+        case GGML_OP_RMS_NORM_BACK: return "GGML_OP_RMS_NORM_BACK";
+        case GGML_OP_GROUP_NORM: return "GGML_OP_GROUP_NORM";
+        case GGML_OP_L2_NORM: return "GGML_OP_L2_NORM";
+        case GGML_OP_MUL_MAT: return "GGML_OP_MUL_MAT";
+        case GGML_OP_MUL_MAT_ID: return "GGML_OP_MUL_MAT_ID";
+        case GGML_OP_OUT_PROD: return "GGML_OP_OUT_PROD";
+        case GGML_OP_SCALE: return "GGML_OP_SCALE";
+        case GGML_OP_SET: return "GGML_OP_SET";
+        case GGML_OP_CPY: return "GGML_OP_CPY";
+        case GGML_OP_CONT: return "GGML_OP_CONT";
+        case GGML_OP_RESHAPE: return "GGML_OP_RESHAPE";
+        case GGML_OP_VIEW: return "GGML_OP_VIEW";
+        case GGML_OP_PERMUTE: return "GGML_OP_PERMUTE";
+        case GGML_OP_TRANSPOSE: return "GGML_OP_TRANSPOSE";
+        case GGML_OP_GET_ROWS: return "GGML_OP_GET_ROWS";
+        case GGML_OP_GET_ROWS_BACK: return "GGML_OP_GET_ROWS_BACK";
+        case GGML_OP_SET_ROWS: return "GGML_OP_SET_ROWS";
+        case GGML_OP_DIAG: return "GGML_OP_DIAG";
+        case GGML_OP_DIAG_MASK_INF: return "GGML_OP_DIAG_MASK_INF";
+        case GGML_OP_DIAG_MASK_ZERO: return "GGML_OP_DIAG_MASK_ZERO";
+        case GGML_OP_SOFT_MAX: return "GGML_OP_SOFT_MAX";
+        case GGML_OP_SOFT_MAX_BACK: return "GGML_OP_SOFT_MAX_BACK";
+        case GGML_OP_ROPE: return "GGML_OP_ROPE";
+        case GGML_OP_ROPE_BACK: return "GGML_OP_ROPE_BACK";
+        case GGML_OP_CLAMP: return "GGML_OP_CLAMP";
+        case GGML_OP_CONV_TRANSPOSE_1D: return "GGML_OP_CONV_TRANSPOSE_1D";
+        case GGML_OP_IM2COL: return "GGML_OP_IM2COL";
+        case GGML_OP_IM2COL_BACK: return "GGML_OP_IM2COL_BACK";
+        case GGML_OP_CONV_2D: return "GGML_OP_CONV_2D";
+        case GGML_OP_CONV_2D_DW: return "GGML_OP_CONV_2D_DW";
+        case GGML_OP_CONV_TRANSPOSE_2D: return "GGML_OP_CONV_TRANSPOSE_2D";
+        case GGML_OP_POOL_1D: return "GGML_OP_POOL_1D";
+        case GGML_OP_POOL_2D: return "GGML_OP_POOL_2D";
+        case GGML_OP_POOL_2D_BACK: return "GGML_OP_POOL_2D_BACK";
+        case GGML_OP_UPSCALE: return "GGML_OP_UPSCALE";
+        case GGML_OP_PAD: return "GGML_OP_PAD";
+        case GGML_OP_PAD_REFLECT_1D: return "GGML_OP_PAD_REFLECT_1D";
+        case GGML_OP_ROLL: return "GGML_OP_ROLL";
+        case GGML_OP_ARANGE: return "GGML_OP_ARANGE";
+        case GGML_OP_TIMESTEP_EMBEDDING: return "GGML_OP_TIMESTEP_EMBEDDING";
+        case GGML_OP_ARGSORT: return "GGML_OP_ARGSORT";
+        case GGML_OP_LEAKY_RELU: return "GGML_OP_LEAKY_RELU";
+        case GGML_OP_FLASH_ATTN_EXT: return "GGML_OP_FLASH_ATTN_EXT";
+        case GGML_OP_FLASH_ATTN_BACK: return "GGML_OP_FLASH_ATTN_BACK";
+        case GGML_OP_SSM_CONV: return "GGML_OP_SSM_CONV";
+        case GGML_OP_SSM_SCAN: return "GGML_OP_SSM_SCAN";
+        case GGML_OP_WIN_PART: return "GGML_OP_WIN_PART";
+        case GGML_OP_WIN_UNPART: return "GGML_OP_WIN_UNPART";
+        case GGML_OP_GET_REL_POS: return "GGML_OP_GET_REL_POS";
+        case GGML_OP_ADD_REL_POS: return "GGML_OP_ADD_REL_POS";
+        case GGML_OP_RWKV_WKV6: return "GGML_OP_RWKV_WKV6";
+        case GGML_OP_GATED_LINEAR_ATTN: return "GGML_OP_GATED_LINEAR_ATTN";
+        case GGML_OP_RWKV_WKV7: return "GGML_OP_RWKV_WKV7";
+        case GGML_OP_UNARY: return "GGML_OP_UNARY";
+        case GGML_OP_MAP_CUSTOM1: return "GGML_OP_MAP_CUSTOM1";
+        case GGML_OP_MAP_CUSTOM2: return "GGML_OP_MAP_CUSTOM2";
+        case GGML_OP_MAP_CUSTOM3: return "GGML_OP_MAP_CUSTOM3";
+        case GGML_OP_CUSTOM: return "GGML_OP_CUSTOM";
+        case GGML_OP_CROSS_ENTROPY_LOSS: return "GGML_OP_CROSS_ENTROPY_LOSS";
+        case GGML_OP_CROSS_ENTROPY_LOSS_BACK: return "GGML_OP_CROSS_ENTROPY_LOSS_BACK";
+        case GGML_OP_OPT_STEP_ADAMW: return "GGML_OP_OPT_STEP_ADAMW";
+        case GGML_OP_GLU: return "GGML_OP_GLU";
+        case GGML_OP_COUNT: return "GGML_OP_COUNT";
+        default: return "UNKNOWN_OP";
+    }
+}
+
+// 수정
+typedef struct {
+    const char * node;
+    const char * func;
+    double latency;
+} log_entry_t;
+
 static thread_ret_t ggml_graph_compute_thread(void * data) {
     struct ggml_compute_state * state = (struct ggml_compute_state *) data;
     struct ggml_threadpool    * tp    = state->threadpool;
@@ -2969,6 +3069,10 @@ static thread_ret_t ggml_graph_compute_thread(void * data) {
     GGML_PRINT_DEBUG("thread #%d compute-start cplan %p last-graph %d\n", state->ith, (const void *)cplan, state->last_graph);
 #endif
 
+    double start_time = 0;
+    int log_idx = 0;
+    log_entry_t * logs = malloc(sizeof(log_entry_t) * cgraph->n_nodes);
+
     for (int node_n = 0; node_n < cgraph->n_nodes && atomic_load_explicit(&tp->abort, memory_order_relaxed) != node_n; node_n++) {
         struct ggml_tensor * node = cgraph->nodes[node_n];
 
@@ -2979,6 +3083,10 @@ static thread_ret_t ggml_graph_compute_thread(void * data) {
 
         if ((node->flags & GGML_TENSOR_FLAG_COMPUTE) == 0) {
             continue;
+        }
+        
+        if (state->ith == 0){
+            start_time = ggml_time_us();
         }
 
         ggml_compute_forward(&params, node);
@@ -2992,8 +3100,26 @@ static thread_ret_t ggml_graph_compute_thread(void * data) {
         if (node_n + 1 < cgraph->n_nodes) {
             ggml_barrier(state->threadpool);
         }
-        printf("node = %s\n", node->name);
+        if (state->ith == 0) {
+            logs[log_idx].node = node->name;
+            logs[log_idx].func = ggml_op_name(node->op);
+            logs[log_idx].latency = (ggml_time_us() - start_time) / 1000;
+            log_idx++;
+        }
     }
+
+    if (state->ith == 0) {
+        for (int i = 0; i < log_idx; i++) {
+            printf("node = %s, function = %s, latency = %.3f ms\n",
+                logs[i].node,
+                logs[i].func,
+                logs[i].latency);
+        }
+        free(logs);
+    }
+
+
+
 
 #ifdef GGML_USE_OPENMP
     GGML_PRINT_DEBUG("thread #%d compute-done cplan %p\n", state->ith, (const void *)cplan);
