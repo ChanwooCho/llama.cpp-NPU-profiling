@@ -38,6 +38,10 @@
 #include <syscall.h>
 #endif
 
+#include <sched.h> // 수정
+#include <unistd.h> // 수정
+#include <sys/syscall.h> // 수정
+
 #ifdef GGML_USE_OPENMP
 #include <omp.h>
 #endif
@@ -3389,10 +3393,17 @@ enum ggml_status ggml_graph_compute(struct ggml_cgraph * cgraph, struct ggml_cpl
             // Apply thread CPU mask and priority
             int ith = omp_get_thread_num();
 
-            ggml_thread_apply_priority(threadpool->prio);
-            if (ggml_thread_cpumask_is_valid(threadpool->workers[ith].cpumask)) {
-                ggml_thread_apply_affinity(threadpool->workers[ith].cpumask);
-            }
+            // 주석으로 수정
+            // ggml_thread_apply_priority(threadpool->prio);
+            // if (ggml_thread_cpumask_is_valid(threadpool->workers[ith].cpumask)) {
+            //     ggml_thread_apply_affinity(threadpool->workers[ith].cpumask);
+            // }
+
+            cpu_set_t set; // 수정
+            CPU_ZERO(&set); // 수정
+            CPU_SET(omp_get_thread_num() + 2, &set); // 수정
+            sched_setaffinity(0, sizeof(cpu_set_t), &set); // 수정
+            
             ggml_graph_compute_thread(&threadpool->workers[ith]);
         }
     } else {
