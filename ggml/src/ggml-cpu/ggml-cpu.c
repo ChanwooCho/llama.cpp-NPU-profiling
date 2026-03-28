@@ -3399,10 +3399,14 @@ enum ggml_status ggml_graph_compute(struct ggml_cgraph * cgraph, struct ggml_cpl
             //     ggml_thread_apply_affinity(threadpool->workers[ith].cpumask);
             // }
 
-            cpu_set_t set; // 수정
-            CPU_ZERO(&set); // 수정
-            CPU_SET(omp_get_thread_num() + 2, &set); // 수정
-            sched_setaffinity(0, sizeof(cpu_set_t), &set); // 수정
+            // 수정
+            cpu_set_t set;
+            CPU_ZERO(&set); 
+            int core_map[] = {7, 4, 3, 2};
+            int tid = omp_get_thread_num();
+            int cpu = core_map[tid];
+            CPU_SET(cpu, &set);
+            sched_setaffinity(0, sizeof(cpu_set_t), &set);
             
             ggml_graph_compute_thread(&threadpool->workers[ith]);
         }
