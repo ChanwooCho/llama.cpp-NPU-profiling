@@ -3402,7 +3402,8 @@ enum ggml_status ggml_graph_compute(struct ggml_cgraph * cgraph, struct ggml_cpl
             // 수정
             cpu_set_t set;
             CPU_ZERO(&set); 
-            int core_map[] = {7, 4, 3, 2};
+            // int core_map[] = {7, 4, 3, 2};
+            int core_map[] = {7, 6, 5, 4};
             int tid = omp_get_thread_num();
             int cpu = core_map[tid];
             CPU_SET(cpu, &set);
